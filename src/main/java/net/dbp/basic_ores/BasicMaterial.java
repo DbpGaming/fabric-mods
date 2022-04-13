@@ -133,7 +133,7 @@ public class BasicMaterial {
 			for (String part : parts) {
 				switch (part) {
 				case "hammer":
-					this.itemParts.put(part, new HammerItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new HammerItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC).recipeRemainder(Items.IRON_AXE)));
 				break;
 				case "excavator":
 					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));

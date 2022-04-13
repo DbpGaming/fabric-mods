@@ -1,0 +1,15 @@
+{
+    "type": "teknologi:advanced_recipe",
+    "result": {
+      "item": "minecraft:redstone",
+      "count": 4
+    },
+    "ingredients": [
+        {
+          "tag": "minecraft:logs"
+        },
+        {
+          "item": "teknologi:hammer_copper"
+        }
+    ]
+}

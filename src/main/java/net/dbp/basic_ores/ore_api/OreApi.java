@@ -9,10 +9,12 @@ import java.util.function.Predicate;
 import io.github.feltmc.feltapi.api.ore_feature.v1.OreFeatures;
 import net.dbp.basic_ores.Basic;
 import net.dbp.basic_ores.BasicJson;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -52,7 +54,11 @@ public class OreApi {
 		registerStoneType("calcite", Blocks.CALCITE);
 		registerOre("copper", Items.RAW_COPPER, 0xc78621);
 		registerOre("iron", Items.RAW_IRON, 0xE0E0E0);
-		registerGeneration("coppertest", Biome.Category.DESERT, -64, 128, 64, 20, 0.0f, oreTypes.get("copper"), oreTypes.get("iron"));
+
+		//for (Integer i = 0; i < 300; i++) {
+		//	registerOre(i.toString(), Items.RAW_IRON, 0xE0E0E0);
+		//}
+		registerGeneration("coppertest", BiomeSelection.DESERT.or(BiomeSelection.NETHER), -64, 128, 64, 20, 0.0f, oreTypes.get("copper"), oreTypes.get("iron"));
 		registerOreBlocks();
 		registerOreGenerations();
 	}
@@ -64,10 +70,11 @@ public class OreApi {
 				BlockItem item = new BlockItem(block, new Item.Settings());
 				Basic.registerBlock(item, block, blocktype.getKey()+"_"+oretype.getKey());
 				BasicJson.registerBlockModel(blocktype.getKey()+"_"+oretype.getKey(), Basic.modid+":block/ore", blocktype.getValue().textureLocation, "ore");
-				//todo client colors
-				//ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> oretype.getValue().color, block);
-				//ColorProviderRegistry.ITEM.register((stack, tintIndex) -> oretype.getValue().color, item);
-				//BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+				ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> oretype.getValue().color, block);
+				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> oretype.getValue().color, item);
+				BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+				}
 				oretype.getValue().oreBlocks.put(blocktype.getKey(), block);
 				oretype.getValue().oreItems.put(blocktype.getKey(), item);
 			}
@@ -83,6 +90,7 @@ public class OreApi {
 	}
 
 	public static void registerOreGenerations(){
+		
 		for (Map.Entry<String, OreGeneration> oregeneration : oreGenerations.entrySet()){
 			OreFeatures.createFilteredOrePlacedFeature(Basic.modid, oregeneration.getKey(), (block, r) -> {
 				BlockState ore = null;
@@ -94,7 +102,7 @@ public class OreApi {
 
         	    if (ore == null) return null;
 				return ore;
-        	}, oregeneration.getValue().min, oregeneration.getValue().max, oregeneration.getValue().weight, oregeneration.getValue().size, oregeneration.getValue().discard, List.of(World.OVERWORLD), List.of(oregeneration.getValue().biome), List.of());
+        	}, oregeneration.getValue().min, oregeneration.getValue().max, oregeneration.getValue().weight, oregeneration.getValue().size, oregeneration.getValue().discard, List.of(), oregeneration.getValue().biome);
 		}
 	}
 
@@ -110,7 +118,7 @@ public class OreApi {
 		oreTypes.put(name, new OreType(name, item, color));
 	}
 
-	public static void registerGeneration(String name, Biome.Category biome, int min, int max, int weight, int size, float discard, OreType... oretypes){
+	public static void registerGeneration(String name, Predicate<BiomeSelectionContext> biome, int min, int max, int weight, int size, float discard, OreType... oretypes){
 		oreGenerations.put(name, new OreGeneration(name, biome, min, max, weight, size, discard, oretypes));
 	}
 }

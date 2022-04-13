@@ -16,3 +16,4 @@ public class BiomeSelection {
 	public static Predicate<BiomeSelectionContext> OCEAN = BiomeSelectors.categories(Biome.Category.OCEAN);
 	public static Predicate<BiomeSelectionContext> PLAINS = BiomeSelectors.categories(Biome.Category.PLAINS);
 }
+

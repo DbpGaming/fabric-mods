@@ -28,6 +28,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.*;
 import net.dbp.basic_ores.GravelOreFeature;
+import net.dbp.basic_ores.recipe_api.AdvancedRecipeSerializer;
+
 import org.slf4j.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
@@ -78,6 +80,7 @@ public class Basic implements ModInitializer {
 		BasicMaterials.oregen();
 		RESOURCE_PACK.addRecipe(new Identifier(modid, "pickaxes/iridium"), JRecipe.smithing(JIngredient.ingredient().item(Items.NETHERITE_PICKAXE), JIngredient.ingredient().item(BasicMaterials.iridium.itemParts.get("plate")), JResult.item(BasicMaterials.iridium.itemParts.get("pickaxe"))));
 		Registry.register(Registry.FEATURE, new Identifier(modid, "gravelore"), GRAVEL_ORE_FEATURE);
+		Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(modid, "advanced_recipe"), AdvancedRecipeSerializer.INSTANCE);
 	}
 
 	public static void registerItem(Item item, String name){
