@@ -1,11 +1,10 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
 import org.jetbrains.annotations.Nullable;
 
+import net.dbp.basic_ores.Basic;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
@@ -13,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TestFurnace extends AbstractFurnaceBlock{
-    protected TestFurnace(Settings settings) {
+    public TestFurnace(Settings settings) {
         super(settings);
     }
 

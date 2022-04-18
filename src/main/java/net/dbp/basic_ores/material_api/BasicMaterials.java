@@ -1,28 +1,17 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.material_api;
 
 import java.util.*;
-import java.util.function.Predicate;
-
-import org.apache.commons.compress.archivers.jar.JarArchiveInputStream;
-
-import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.*;
 import net.devtech.arrp.json.loot.*;
 import net.devtech.arrp.json.recipe.*;
-import net.minecraft.structure.rule.*;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.*;
 import net.devtech.arrp.json.tags.JTag;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.dbp.basic_ores.*;
 import net.dbp.basic_ores.ore_api.*;
 
 public class BasicMaterials {
@@ -41,77 +30,77 @@ public class BasicMaterials {
 	public static final HashSet<String> pickblocks = new HashSet<>();
 	
     //vanilla
-	static BasicMaterial gold = new BasicMaterial("gold", 0xe7ca53).addItemParts(vanilla).addTag("tier2");
-	static BasicMaterial copper = new BasicMaterial("copper", 0xc78621).addItemParts(vanilla, tools).setMagicNumber(2, 1).addTag("tier1");
-	static BasicMaterial tetrahedrite = new BasicMaterial("tetrahedrite", 0xc78621).addTag("ore");
-	static BasicMaterial iron = new BasicMaterial("iron", 0xE0E0E0).addItemParts(vanilla).addItemPart("shield", "bow", "fishingrod", "hammer", "excavator").addTag("tier2");
-	static BasicMaterial pyrite = new BasicMaterial("pyrite", 0xE0E0E0).addTag("ore");
-	static BasicMaterial emerald = new BasicMaterial("emerald", 0x08dd7b).setMagicNumber(3, 3).addItemPart("dust").addItemParts(tools);
+	public static BasicMaterial gold = new BasicMaterial("gold", 0xe7ca53).addItemParts(vanilla).addTag("tier2");
+	public static BasicMaterial copper = new BasicMaterial("copper", 0xc78621).addItemParts(vanilla, tools).setMagicNumber(2, 1).addTag("tier1");
+	public static BasicMaterial tetrahedrite = new BasicMaterial("tetrahedrite", 0xc78621).addTag("ore");
+	public static BasicMaterial iron = new BasicMaterial("iron", 0xE0E0E0).addItemParts(vanilla).addItemPart("shield", "bow", "fishingrod", "hammer", "excavator").addTag("tier2");
+	public static BasicMaterial pyrite = new BasicMaterial("pyrite", 0xE0E0E0).addTag("ore");
+	public static BasicMaterial emerald = new BasicMaterial("emerald", 0x08dd7b).setMagicNumber(3, 3).addItemPart("dust").addItemParts(tools);
 	//basic
-	static BasicMaterial nickel = new BasicMaterial("nickel", 0x464D19).setMagicNumber(2, 2).addItemParts(metal, tools).addTag("tier2");
-	static BasicMaterial garnierite = new BasicMaterial("garnierite", 0x464D19).addTag("ore");
-	static BasicMaterial galena = new BasicMaterial("galena", 0xFFFFFF).addTag("ore");
-	static BasicMaterial lead = new BasicMaterial("lead", 0x544773).addItemParts(metal).addBlockParts(block).addTag("tier2");
-	static BasicMaterial silver = new BasicMaterial("silver", 0x9cbddc).addItemParts(metal).addBlockParts(block).addTag("tier2");
-	static BasicMaterial platinum = new BasicMaterial("platinum", 0x70b6f7).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block).addTag("tier4");
-	static BasicMaterial sheldonite = new BasicMaterial("sheldonite", 0x181b07).addTag("ore");
-	static BasicMaterial invar = new BasicMaterial("invar", 0xcebe7c).setMagicNumber(2, 3).addItemParts(metal, tools).addBlockParts(block).addTag("tier3");
-	static BasicMaterial electrum = new BasicMaterial("electrum", 0xf3d248).addItemParts(metal).addBlockParts(block).addTag("tier3");
+	public static BasicMaterial nickel = new BasicMaterial("nickel", 0x464D19).setMagicNumber(2, 2).addItemParts(metal, tools).addTag("tier2");
+	public static BasicMaterial garnierite = new BasicMaterial("garnierite", 0x464D19).addTag("ore");
+	public static BasicMaterial galena = new BasicMaterial("galena", 0xFFFFFF).addTag("ore");
+	public static BasicMaterial lead = new BasicMaterial("lead", 0x544773).addItemParts(metal).addBlockParts(block).addTag("tier2");
+	public static BasicMaterial silver = new BasicMaterial("silver", 0x9cbddc).addItemParts(metal).addBlockParts(block).addTag("tier2");
+	public static BasicMaterial platinum = new BasicMaterial("platinum", 0x70b6f7).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block).addTag("tier4");
+	public static BasicMaterial sheldonite = new BasicMaterial("sheldonite", 0x181b07).addTag("ore");
+	public static BasicMaterial invar = new BasicMaterial("invar", 0xcebe7c).setMagicNumber(2, 3).addItemParts(metal, tools).addBlockParts(block).addTag("tier3");
+	public static BasicMaterial electrum = new BasicMaterial("electrum", 0xf3d248).addItemParts(metal).addBlockParts(block).addTag("tier3");
 	//basic2
-	static BasicMaterial tin = new BasicMaterial("tin", 0xE0E0FF).addItemParts(metal).addTag("tier2").addTag("tier1");
-	static BasicMaterial cassiterite = new BasicMaterial("cassiterite", 0xE0E0FF).addTag("ore");
-	static BasicMaterial bronze = new BasicMaterial("bronze", 0xc69114).setMagicNumber(2, 2).addItemParts(metal).addBlockParts(block).addTag("tier2");
-	static BasicMaterial steel = new BasicMaterial("steel", 0x424c55).setMagicNumber(2, 3).addItemParts(metal).addBlockParts(block).addTag("tier3");
-	static BasicMaterial aluminium = new BasicMaterial("aluminium", 0xbad4ec).addItemParts(metal).addBlockParts(block).addTag("tier2");
-	static BasicMaterial bauxite = new BasicMaterial("bauxite", 0xbad4ec).addTag("ore");
+	public static BasicMaterial tin = new BasicMaterial("tin", 0xE0E0FF).addItemParts(metal).addTag("tier2").addTag("tier1");
+	public static BasicMaterial cassiterite = new BasicMaterial("cassiterite", 0xE0E0FF).addTag("ore");
+	public static BasicMaterial bronze = new BasicMaterial("bronze", 0xc69114).setMagicNumber(2, 2).addItemParts(metal).addBlockParts(block).addTag("tier2");
+	public static BasicMaterial steel = new BasicMaterial("steel", 0x424c55).setMagicNumber(2, 3).addItemParts(metal).addBlockParts(block).addTag("tier3");
+	public static BasicMaterial aluminium = new BasicMaterial("aluminium", 0xbad4ec).addItemParts(metal).addBlockParts(block).addTag("tier2");
+	public static BasicMaterial bauxite = new BasicMaterial("bauxite", 0xbad4ec).addTag("ore");
 	//power
-	static BasicMaterial nikolite = new BasicMaterial("nikolite", 0x1273de).addItemPart("dust").addTag("ore");
-	static BasicMaterial ruby = new BasicMaterial("ruby", 0xbb4a1d).setMagicNumber(2, 3).addItemParts(gem, tools).addTag("ore");
-	static BasicMaterial sapphire = new BasicMaterial("sapphire", 0x1b55b8).setMagicNumber(2, 3).addItemParts(gem, tools).addTag("ore");
-	static BasicMaterial olivine = new BasicMaterial("olivine", 0x08dd7b).setMagicNumber(3, 3).addItemParts(gem).addTag("ore");
-	static BasicMaterial redalloy = new BasicMaterial("redalloy", 0x000000).addItemParts(metal).addTag("ore");
+	public static BasicMaterial nikolite = new BasicMaterial("nikolite", 0x1273de).addItemPart("dust").addTag("ore");
+	public static BasicMaterial ruby = new BasicMaterial("ruby", 0xbb4a1d).setMagicNumber(2, 3).addItemParts(gem, tools).addTag("ore");
+	public static BasicMaterial sapphire = new BasicMaterial("sapphire", 0x1b55b8).setMagicNumber(2, 3).addItemParts(gem, tools).addTag("ore");
+	public static BasicMaterial olivine = new BasicMaterial("olivine", 0x08dd7b).setMagicNumber(3, 3).addItemParts(gem).addTag("ore");
+	public static BasicMaterial redalloy = new BasicMaterial("redalloy", 0x000000).addItemParts(metal).addTag("ore");
 	//advanced
-	static BasicMaterial tungsten = new BasicMaterial("tungsten", 0x181b07).addItemParts(metal);
-	static BasicMaterial tungstate = new BasicMaterial("tungstate", 0x181b07).addTag("ore");
-	static BasicMaterial titanium = new BasicMaterial("titanium", 0xc4b4ed).addItemParts(metal);
-	static BasicMaterial rutile = new BasicMaterial("rutile", 0xc4b4ed).addTag("ore");
-	static BasicMaterial sphalerite = new BasicMaterial("sphalerite", 0x181b07).addTag("ore");
-	static BasicMaterial zinc = new BasicMaterial("zinc", 0xbba69f).addItemParts(metal).addBlockParts(block);
-	static BasicMaterial brass = new BasicMaterial("brass", 0xdba31e).addItemParts(metal).addBlockParts(block);
-	static BasicMaterial aluminiumbrass = new BasicMaterial("aluminiumbrass", 0xdba31e).addItemParts(metal).addBlockParts(block);
-	static BasicMaterial cobalt = new BasicMaterial("cobalt", 0x505080).setMagicNumber(3, 5).addItemParts(metal, tools).addBlockParts(block);
-	static BasicMaterial wroughtiron = new BasicMaterial("wroughtiron", 0xceaa9f).addItemParts(metal).addBlockParts(block);
-	static BasicMaterial chromium = new BasicMaterial("chromium", 0xf4c4b5).addItemParts(metal).addBlockParts(block);
-	static BasicMaterial chromite= new BasicMaterial("chromite", 0xf4c4b5).addTag("ore");
-	static BasicMaterial tungstensteel = new BasicMaterial("tungstensteel", 0x274562).setMagicNumber(4, 4).addItemParts(metal, tools).addBlockParts(block);
-	static BasicMaterial osmium = new BasicMaterial("osmium", 0x93bbe8).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block);
-	static BasicMaterial iridium = new BasicMaterial("iridium", 0xFFFFFF).addItemParts(metal, tools).addBlockParts(block);
-	static BasicMaterial magnesium = new BasicMaterial("magnesium", 0x000000).addItemParts(metal);
-	static BasicMaterial magnesite = new BasicMaterial("magnesite", 0x000000).addTag("ore");
-	static BasicMaterial cupronickel = new BasicMaterial("cupronickel", 0x000000).addItemParts(metal).addTag("ore");
+	public static BasicMaterial tungsten = new BasicMaterial("tungsten", 0x181b07).addItemParts(metal);
+	public static BasicMaterial tungstate = new BasicMaterial("tungstate", 0x181b07).addTag("ore");
+	public static BasicMaterial titanium = new BasicMaterial("titanium", 0xc4b4ed).addItemParts(metal);
+	public static BasicMaterial rutile = new BasicMaterial("rutile", 0xc4b4ed).addTag("ore");
+	public static BasicMaterial sphalerite = new BasicMaterial("sphalerite", 0x181b07).addTag("ore");
+	public static BasicMaterial zinc = new BasicMaterial("zinc", 0xbba69f).addItemParts(metal).addBlockParts(block);
+	public static BasicMaterial brass = new BasicMaterial("brass", 0xdba31e).addItemParts(metal).addBlockParts(block);
+	public static BasicMaterial aluminiumbrass = new BasicMaterial("aluminiumbrass", 0xdba31e).addItemParts(metal).addBlockParts(block);
+	public static BasicMaterial cobalt = new BasicMaterial("cobalt", 0x505080).setMagicNumber(3, 5).addItemParts(metal, tools).addBlockParts(block);
+	public static BasicMaterial wroughtiron = new BasicMaterial("wroughtiron", 0xceaa9f).addItemParts(metal).addBlockParts(block);
+	public static BasicMaterial chromium = new BasicMaterial("chromium", 0xf4c4b5).addItemParts(metal).addBlockParts(block);
+	public static BasicMaterial chromite= new BasicMaterial("chromite", 0xf4c4b5).addTag("ore");
+	public static BasicMaterial tungstensteel = new BasicMaterial("tungstensteel", 0x274562).setMagicNumber(4, 4).addItemParts(metal, tools).addBlockParts(block);
+	public static BasicMaterial osmium = new BasicMaterial("osmium", 0x93bbe8).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block);
+	public static BasicMaterial iridium = new BasicMaterial("iridium", 0xFFFFFF).addItemParts(metal, tools).addBlockParts(block);
+	public static BasicMaterial magnesium = new BasicMaterial("magnesium", 0x000000).addItemParts(metal);
+	public static BasicMaterial magnesite = new BasicMaterial("magnesite", 0x000000).addTag("ore");
+	public static BasicMaterial cupronickel = new BasicMaterial("cupronickel", 0x000000).addItemParts(metal).addTag("ore");
 	//nuclear
-	static BasicMaterial uranium = new BasicMaterial("uranium", 0x000000).addItemParts(metal).addTag("ore");
-	static BasicMaterial thorium = new BasicMaterial("thorium", 0x000000).addItemParts(metal);
-	static BasicMaterial plutonium = new BasicMaterial("plutonium", 0x000000).addItemParts(metal);
+	public static BasicMaterial uranium = new BasicMaterial("uranium", 0x000000).addItemParts(metal).addTag("ore");
+	public static BasicMaterial thorium = new BasicMaterial("thorium", 0x000000).addItemParts(metal);
+	public static BasicMaterial plutonium = new BasicMaterial("plutonium", 0x000000).addItemParts(metal);
 	//classic foundation
-	static BasicMaterial signalium = new BasicMaterial("signalium", 0x000000).addItemParts(metal);
-	static BasicMaterial lumium = new BasicMaterial("lumium", 0x000000).addItemParts(metal);
-	static BasicMaterial enderium = new BasicMaterial("enderium", 0x000000).addItemParts(metal);
-	static BasicMaterial pyrotheum = new BasicMaterial("pyrotheum", 0x000000).addItemParts(metal);
-	static BasicMaterial cryotheum = new BasicMaterial("cryotheum", 0x000000).addItemParts(metal);
-	static BasicMaterial aerotheum = new BasicMaterial("aerotheum", 0x000000).addItemParts(metal);
-	static BasicMaterial petrotheum = new BasicMaterial("petrotheum", 0x000000).addItemParts(metal);
-	static BasicMaterial fluxedelectrum = new BasicMaterial("fluxedelectrum", 0x000000).addItemParts(metal);
-	static BasicMaterial flux = new BasicMaterial("flux", 0x000000).addItemParts(metal);
+	public static BasicMaterial signalium = new BasicMaterial("signalium", 0x000000).addItemParts(metal);
+	public static BasicMaterial lumium = new BasicMaterial("lumium", 0x000000).addItemParts(metal);
+	public static BasicMaterial enderium = new BasicMaterial("enderium", 0x000000).addItemParts(metal);
+	public static BasicMaterial pyrotheum = new BasicMaterial("pyrotheum", 0x000000).addItemParts(metal);
+	public static BasicMaterial cryotheum = new BasicMaterial("cryotheum", 0x000000).addItemParts(metal);
+	public static BasicMaterial aerotheum = new BasicMaterial("aerotheum", 0x000000).addItemParts(metal);
+	public static BasicMaterial petrotheum = new BasicMaterial("petrotheum", 0x000000).addItemParts(metal);
+	public static BasicMaterial fluxedelectrum = new BasicMaterial("fluxedelectrum", 0x000000).addItemParts(metal);
+	public static BasicMaterial flux = new BasicMaterial("flux", 0x000000).addItemParts(metal);
 	//classic io
-	static BasicMaterial electricalsteel = new BasicMaterial("electricalsteel", 0x000000).addItemParts(metal);
-	static BasicMaterial energetic = new BasicMaterial("energetic", 0x000000).addItemParts(metal);
-	static BasicMaterial vibrant = new BasicMaterial("vibrant", 0x000000).addItemParts(metal);
-	static BasicMaterial conductiveiron = new BasicMaterial("conductiveiron", 0x000000).addItemParts(metal);
-	static BasicMaterial pulsatingiron = new BasicMaterial("pulsatingiron", 0x000000).addItemParts(metal);
-	static BasicMaterial darksteel = new BasicMaterial("darksteel", 0x000000).addItemParts(metal);
-	static BasicMaterial soularium = new BasicMaterial("soularium", 0x000000).addItemParts(metal);
-	static BasicMaterial darksoularium = new BasicMaterial("darksoularium", 0x000000).addItemParts(metal);
+	public static BasicMaterial electricalsteel = new BasicMaterial("electricalsteel", 0x000000).addItemParts(metal);
+	public static BasicMaterial energetic = new BasicMaterial("energetic", 0x000000).addItemParts(metal);
+	public static BasicMaterial vibrant = new BasicMaterial("vibrant", 0x000000).addItemParts(metal);
+	public static BasicMaterial conductiveiron = new BasicMaterial("conductiveiron", 0x000000).addItemParts(metal);
+	public static BasicMaterial pulsatingiron = new BasicMaterial("pulsatingiron", 0x000000).addItemParts(metal);
+	public static BasicMaterial darksteel = new BasicMaterial("darksteel", 0x000000).addItemParts(metal);
+	public static BasicMaterial soularium = new BasicMaterial("soularium", 0x000000).addItemParts(metal);
+	public static BasicMaterial darksoularium = new BasicMaterial("darksoularium", 0x000000).addItemParts(metal);
     
     public static void registerMats(){
         registerMat(nickel);

@@ -1,5 +1,6 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
+import net.dbp.basic_ores.Basic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;

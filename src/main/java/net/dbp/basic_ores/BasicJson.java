@@ -10,9 +10,9 @@ import net.devtech.arrp.json.blockstate.*;
 import net.devtech.arrp.json.models.*;
 
 public class BasicJson {
-    static String[] hammerShape = {" M ", " HM", "H  "};
-	static String[] excavatorShape = {" M  ", "MHM", " H "};
-	static String[] pickaxeShape = {"PMM", " H ", " H "};
+    public static String[] hammerShape = {" M ", " HM", "H  "};
+	public static String[] excavatorShape = {" M  ", "MHM", " H "};
+	public static String[] pickaxeShape = {"PMM", " H ", " H "};
     
     public static void createToolRecipe(String name, String recipeName, String[] shape, String mat, String mat2, Item item, Item handle){
 		Basic.RESOURCE_PACK.addRecipe(new Identifier(Basic.modid, recipeName+name), 

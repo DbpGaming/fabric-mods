@@ -2,8 +2,7 @@ package net.dbp.basic_ores.recipe_api;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapelessRecipe;
+import net.minecraft.recipe.*;
 import net.minecraft.util.collection.DefaultedList;
 
 public class AdvancedRecipe extends ShapelessRecipe {

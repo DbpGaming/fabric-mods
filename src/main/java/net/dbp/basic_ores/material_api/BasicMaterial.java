@@ -1,9 +1,10 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.material_api;
 
 import java.util.*;
 import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
 //import draylar.gateofbabylon.item.*;
 import draylar.magna.item.*;
+import net.dbp.basic_ores.Basic;
 import net.dbp.basic_ores.tool_api.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -72,13 +73,13 @@ public class BasicMaterial {
 	public class ArmorMat implements ArmorMaterial{
 		@Override
 		public int getDurability(EquipmentSlot slot) {
-			int[] dura = new int[] {magicNumber2*12, magicNumber2*14, magicNumber2*16, magicNumber2*10};
+			int[] dura = {magicNumber2*12, magicNumber2*14, magicNumber2*16, magicNumber2*10};
 			return dura[slot.getEntitySlotId()];
 		}
 
 		@Override
 		public int getProtectionAmount(EquipmentSlot slot) {
-			int[] prot = new int[] {magicNumber, magicNumber*2+1, magicNumber*2+2, magicNumber};
+			int[] prot = {magicNumber, magicNumber*2+1, magicNumber*2+2, magicNumber};
 			return prot[slot.getEntitySlotId()];
 		}
 

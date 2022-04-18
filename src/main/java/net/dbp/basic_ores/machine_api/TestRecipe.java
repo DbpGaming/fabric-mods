@@ -1,5 +1,6 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
+import net.dbp.basic_ores.Basic;
 import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;

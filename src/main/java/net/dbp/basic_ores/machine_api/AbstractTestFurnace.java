@@ -1,4 +1,4 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.*;

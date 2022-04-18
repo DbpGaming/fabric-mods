@@ -28,6 +28,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.*;
 import net.dbp.basic_ores.GravelOreFeature;
+import net.dbp.basic_ores.machine_api.*;
+import net.dbp.basic_ores.material_api.BasicMaterials;
 import net.dbp.basic_ores.recipe_api.AdvancedRecipeSerializer;
 
 import org.slf4j.*;

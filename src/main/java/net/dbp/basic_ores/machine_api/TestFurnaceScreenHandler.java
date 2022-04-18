@@ -1,5 +1,6 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
+import net.dbp.basic_ores.Basic;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.recipe.book.RecipeBookCategory;

@@ -1,4 +1,4 @@
-package net.dbp.basic_ores;
+package net.dbp.basic_ores.machine_api;
 
 import net.fabricmc.api.*;
 import net.minecraft.client.gui.screen.ingame.AbstractFurnaceScreen;
